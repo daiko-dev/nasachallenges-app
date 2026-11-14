@@ -1,0 +1,22 @@
+# Core Web Framework
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+pydantic>=2.6.0
+pydantic-settings>=2.2.0
+
+# Scientific & Astronomical Processing
+astropy>=6.0.0
+astroquery>=0.4.7
+scipy>=1.12.0
+numpy>=1.26.0
+specutils>=1.13.0
+
+# HTTP & External APIs
+httpx>=0.27.0
+requests>=2.31.0
+
+# Supabase & Vector Storage
+supabase>=2.3.0
+
+# Utilities
+python-dotenv>=1.0.1
