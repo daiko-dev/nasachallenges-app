@@ -45,3 +45,30 @@ def test_masked_pixels_become_nan():
     assert not np.isnan(cutout.cleaned_image[30, 30])
     assert cutout.detector == 3
     assert 0.75 <= cutout.lambda_um <= 5.0
+
+def test_fetch_cutout_cache_distinguishes_different_urls(tmp_path, monkeypatch):
+    # Important Fix 3: Cache key includes access_url hash so different epochs at same coords don't collide
+    from app.services.cutouts import fetch_cutout
+    import httpx
+    
+    class MockResponse:
+        def __init__(self, content):
+            self.content = content
+        def raise_for_status(self):
+            pass
+            
+    call_count = 0
+    def mock_get(url, *args, **kwargs):
+        nonlocal call_count
+        call_count += 1
+        return MockResponse(f"fits_content_{call_count}".encode())
+        
+    monkeypatch.setattr(httpx.Client, "get", mock_get)
+    
+    p1 = fetch_cutout("https://irsa.ipac.caltech.edu/epoch1.fits", ra=210.8, dec=54.3, size_deg=0.1, cache_dir=tmp_path)
+    p2 = fetch_cutout("https://irsa.ipac.caltech.edu/epoch2.fits", ra=210.8, dec=54.3, size_deg=0.1, cache_dir=tmp_path)
+    
+    assert p1 != p2
+    assert p1.exists()
+    assert p2.exists()
+    assert p1.read_bytes() != p2.read_bytes()

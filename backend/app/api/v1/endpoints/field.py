@@ -1,12 +1,14 @@
 from datetime import datetime, timezone
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
+from astropy.time import Time
 from app.schemas.manifest import (
     FieldManifest,
     GridInfo,
     ProvenanceInfo
 )
-from app.services.query import normalize_ra, search_epochs
+from app.services.query import normalize_ra, search_epochs, UpstreamIRSAError
 from app.services.fields import get_curated_field
+from app.services.frames import lambda_matched
 
 router = APIRouter()
 
@@ -15,8 +17,8 @@ MANDATORY_CREDIT = "SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared 
 @router.get("/field", response_model=FieldManifest)
 def get_field(
     ra: float = Query(..., description="Right Ascension in degrees"),
-    dec: float = Query(..., description="Declination in degrees"),
-    fov: float = Query(0.25, description="Field of View in degrees"),
+    dec: float = Query(..., ge=-90.0, le=90.0, description="Declination in degrees"),
+    fov: float = Query(0.25, gt=0.0, le=10.0, description="Field of View in degrees"),
     max_epochs: int = Query(8, description="Maximum epochs to retrieve")
 ):
     """
@@ -30,10 +32,14 @@ def get_field(
     if curated is not None:
         return curated
         
-    # 2. Query IRSA SIA2 service
+    # 2. Query IRSA SIA2 service with error propagation
     now_utc = datetime.now(timezone.utc).isoformat()
     radius_deg = max(0.02, min(fov / 2.0, 0.5))
-    epochs_records = search_epochs(ra=norm_ra, dec=dec, radius_deg=radius_deg)
+    try:
+        epochs_records = search_epochs(ra=norm_ra, dec=dec, radius_deg=radius_deg)
+    except UpstreamIRSAError as exc:
+        # Review Focus 4: Propagate upstream timeout so frontend can trigger fallback mode
+        raise HTTPException(status_code=504, detail=f"Upstream IRSA gateway timeout: {exc}")
     
     # Review Focus 1: No coverage returns 200 with clear message
     if not epochs_records:
@@ -59,10 +65,7 @@ def get_field(
         
     # Build manifest from IRSA records (capped at max_epochs)
     limited_records = epochs_records[:max_epochs]
-    # For live cutouts: if cutout processing is enabled, create aligned frames
-    # Otherwise return metadata with source URLs
     epochs_list = []
-    matched_pairs = []
     
     for idx, rec in enumerate(limited_records):
         ep_id = f"ep-{idx + 1:02d}"
@@ -71,10 +74,16 @@ def get_field(
         if lam < 0.75:
             lam = 1.12
             bw = 0.03
+            
+        try:
+            utc_str = Time(rec.t_mjd, format="mjd").utc.isot + "Z"
+        except Exception:
+            utc_str = f"2026-03-01T12:00:00Z"
+            
         epochs_list.append({
             "id": ep_id,
             "obsId": rec.obs_id,
-            "utc": f"MJD {rec.t_mjd:.2f}",
+            "utc": utc_str,
             "release": "dr1" if "dr1" in rec.collection else "qr3",
             "detector": rec.detector if 1 <= rec.detector <= 6 else 1,
             "lambdaUm": round(lam, 4),
@@ -82,6 +91,20 @@ def get_field(
             "frameUrl": f"/data/live/frames/{ep_id}.png",
             "sourceUrl": rec.access_url
         })
+        
+    # Important Fix 1: Compute matchedPairs for live epochs
+    matched_pairs = []
+    for i in range(len(epochs_list)):
+        for j in range(i + 1, len(epochs_list)):
+            ep_a = epochs_list[i]
+            ep_b = epochs_list[j]
+            if lambda_matched(ep_a["lambdaUm"], ep_a["bandwidthUm"], ep_b["lambdaUm"], ep_b["bandwidthUm"]):
+                matched_pairs.append([ep_a["id"], ep_b["id"]])
+                
+    # Review Focus 1: Single epoch message
+    status_message = None
+    if len(epochs_list) == 1:
+        status_message = "Single SPHEREx epoch found; blinking and motion detection require >= 2 epochs."
         
     return FieldManifest(
         schemaVersion="1.0",
@@ -94,7 +117,7 @@ def get_field(
         epochs=epochs_list,
         matchedPairs=matched_pairs,
         candidates=[],
-        message=None,
+        message=status_message,
         provenance=ProvenanceInfo(
             collection="spherex_dr1+qr3",
             retrievedUtc=now_utc,

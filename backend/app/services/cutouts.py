@@ -1,4 +1,5 @@
 import os
+import hashlib
 from pathlib import Path
 from dataclasses import dataclass
 from typing import List, Tuple, Union
@@ -69,6 +70,10 @@ def lambda_at(source: Union[Path, str, fits.HDUList], ra: float, dec: float) -> 
         # Guarantee within instrument range 0.75 - 5.0 um
         lam = float(lam)
         bw = float(bw)
+        if lam < 1e-3:
+            lam *= 1e6
+        if bw < 1e-3:
+            bw *= 1e6
         if lam < 0.75:
             lam = 0.75
         elif lam > 5.0:
@@ -154,7 +159,8 @@ def fetch_cutout(
 ) -> Path:
     """Downloads cutout from IRSA or returns cached file."""
     cache_dir.mkdir(parents=True, exist_ok=True)
-    filename = f"cutout_{ra:.4f}_{dec:.4f}_{size_deg:.3f}.fits"
+    url_hash = hashlib.sha256(access_url.encode()).hexdigest()[:10]
+    filename = f"cutout_{url_hash}_{ra:.4f}_{dec:.4f}_{size_deg:.3f}.fits"
     target_path = cache_dir / filename
     if target_path.exists():
         return target_path

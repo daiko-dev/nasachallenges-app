@@ -52,10 +52,10 @@ def test_field_ra_out_of_range_is_normalized():
 def test_field_no_coverage_returns_200_with_message(monkeypatch):
     # Review Focus 1: Uncovered sky coordinate returns HTTP 200 with empty epochs and helpful message, never 500
     from app.main import app
-    import app.services.query as query_module
+    import app.api.v1.endpoints.field as field_endpoint
     
-    # Mock search_epochs to return empty list
-    monkeypatch.setattr(query_module, "search_epochs", lambda *args, **kwargs: [])
+    # Mock search_epochs in field endpoint to return empty list
+    monkeypatch.setattr(field_endpoint, "search_epochs", lambda *args, **kwargs: [])
     
     client = TestClient(app)
     # Coordinate far away from any curated field
@@ -66,6 +66,67 @@ def test_field_no_coverage_returns_200_with_message(monkeypatch):
     assert data["epochs"] == []
     assert data["message"] is not None
     assert "no spherex coverage" in data["message"].lower() or "no observations" in data["message"].lower()
+
+def test_field_computes_matched_pairs_and_iso_dates(monkeypatch):
+    # Important Fix 1 & 4: Live query populates matchedPairs and formats utc as ISO-8601
+    from app.main import app
+    import app.api.v1.endpoints.field as field_endpoint
+    from app.services.query import EpochRecord
+    
+    mock_records = [
+        EpochRecord(
+            obs_id="SPX_LIVE_01",
+            collection="spherex_dr1",
+            access_url="https://irsa.ipac.caltech.edu/sample1.fits",
+            t_mjd=60400.25,
+            detector=2,
+            s_ra=50.0,
+            s_dec=10.0,
+            em_min=1.10e-6,
+            em_max=1.14e-6
+        ),
+        EpochRecord(
+            obs_id="SPX_LIVE_02",
+            collection="spherex_qr3",
+            access_url="https://irsa.ipac.caltech.edu/sample2.fits",
+            t_mjd=60480.50,
+            detector=2,
+            s_ra=50.0,
+            s_dec=10.0,
+            em_min=1.10e-6,
+            em_max=1.14e-6
+        )
+    ]
+    monkeypatch.setattr(field_endpoint, "search_epochs", lambda *args, **kwargs: mock_records)
+    
+    client = TestClient(app)
+    response = client.get("/api/v1/field?ra=50.0&dec=10.0&fov=0.1")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["epochs"]) == 2
+    # Check matched pairs computed
+    assert len(data["matchedPairs"]) == 1
+    assert data["matchedPairs"][0] == ["ep-01", "ep-02"]
+    # Check ISO-8601 format (contains 'T' and ends with 'Z', not starting with 'MJD')
+    assert "T" in data["epochs"][0]["utc"]
+    assert data["epochs"][0]["utc"].endswith("Z")
+    assert not data["epochs"][0]["utc"].startswith("MJD")
+
+def test_field_irsa_timeout_returns_504(monkeypatch):
+    # Important Fix 2: IRSA upstream timeout returns HTTP 504
+    from app.main import app
+    import app.api.v1.endpoints.field as field_endpoint
+    from app.services.query import UpstreamIRSAError
+    
+    def raise_timeout(*args, **kwargs):
+        raise UpstreamIRSAError("IRSA SIA2 timeout after 12s")
+        
+    monkeypatch.setattr(field_endpoint, "search_epochs", raise_timeout)
+    
+    client = TestClient(app)
+    response = client.get("/api/v1/field?ra=50.0&dec=10.0&fov=0.1")
+    assert response.status_code == 504
+    assert "timeout" in response.json()["detail"].lower()
 
 def test_cors_headers_present():
     from app.main import app

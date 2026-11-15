@@ -5,6 +5,10 @@ from typing import List, Tuple, Optional
 from astropy.io.votable import parse_single_table
 import httpx
 
+class UpstreamIRSAError(Exception):
+    """Raised when upstream IRSA SIA2 service times out or is unreachable."""
+    pass
+
 @dataclass
 class EpochRecord:
     obs_id: str
@@ -105,6 +109,10 @@ def search_epochs(
         resp = httpx.get(url, timeout=timeout_s, headers={"Accept": "application/x-votable+xml"})
         if resp.status_code == 200:
             return search_epochs_from_votable(resp.text)
-    except Exception:
-        pass
+        elif resp.status_code >= 500:
+            raise UpstreamIRSAError(f"IRSA responded with status {resp.status_code}")
+    except httpx.TimeoutException as exc:
+        raise UpstreamIRSAError(f"IRSA request timed out: {exc}") from exc
+    except httpx.RequestError as exc:
+        raise UpstreamIRSAError(f"Network error contacting IRSA: {exc}") from exc
     return []
