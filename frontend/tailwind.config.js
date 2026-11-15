@@ -1,25 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        space: {
-          950: '#030712',
-          900: '#0B0F19',
-          800: '#111827',
-          700: '#1F2937'
-        },
-        infrared: {
-          500: '#EF4444',
-          600: '#DC2626',
-          glow: '#F87171'
-        }
-      }
+        obsidian: '#0A0D14',
+        instrument: '#121722',
+        instrumentBorder: '#64748B',
+        accentAmber: '#F59E0B',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
     },
   },
   plugins: [],
-}
+};
