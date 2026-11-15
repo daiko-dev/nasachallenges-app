@@ -794,7 +794,7 @@ describe('Tier 2 — Boundary & Corner Cases', () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Live SPHEREx backend unreachable/i)).toBeTruthy();
+      expect(screen.getByText(/Demo mode/i)).toBeTruthy();
     });
     expect(screen.getByRole('button', { name: /Retry live query/i })).toBeTruthy();
     expect(screen.getByRole('link', { name: /Open coordinate in NASA IRSA/i })).toBeTruthy();

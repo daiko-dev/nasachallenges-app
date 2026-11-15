@@ -131,7 +131,7 @@ describe('App interactive click-through', () => {
     expect(screen.getByText(/Querying live SPHEREx field data/i)).toBeTruthy();
 
     await waitFor(() => {
-      expect(screen.getByText(/Live SPHEREx backend unreachable/i)).toBeTruthy();
+      expect(screen.getByText(/Demo mode/i)).toBeTruthy();
     });
 
     expect(screen.getByRole('button', { name: /Retry live query/i })).toBeTruthy();

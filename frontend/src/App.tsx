@@ -369,50 +369,41 @@ export function App() {
         )}
 
         {!loading && fieldError && (
-          <section
-            role="alert"
-            className="flex flex-col gap-1 rounded-md border border-amber-500/70 bg-obsidian/95 px-2.5 py-1.5"
+          <div
+            role="status"
+            className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-instrumentBorder/60 bg-obsidian/70 px-3 py-1.5 text-xs text-slate-400"
           >
-            <div className="flex flex-wrap items-center justify-between gap-1.5">
-              <div>
-                <h2 className="text-[11px] font-semibold text-amber-300">{t.offlineTitle}</h2>
-                <p className="font-mono text-[10px] text-slate-300 tabular-nums">
-                  {fieldError.message} ({t.activeTargetLabel} RA {view.ra.toFixed(4)} deg, Dec{' '}
-                  {view.dec.toFixed(4)} deg)
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500" aria-hidden="true" />
+              {t.offlineTitle} · {t.activeTargetLabel} {view.ra.toFixed(4)}°, {view.dec.toFixed(4)}°
+            </span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => loadTarget(view)}
+                className="min-h-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-slate-300 hover:border-amber-400"
+              >
+                {t.retryButton}
+              </button>
+              {latestCached && (
                 <button
                   type="button"
-                  onClick={() => loadTarget(view)}
-                  className="min-h-[44px] rounded-md bg-accentAmber px-2.5 text-[11px] font-semibold text-obsidian hover:bg-amber-400 active:scale-[0.98]"
+                  onClick={handleLoadLatestCached}
+                  className="min-h-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-slate-300 hover:border-amber-400"
                 >
-                  {t.retryButton}
+                  {t.loadLatestCached}
                 </button>
-
-                {latestCached && (
-                  <button
-                    type="button"
-                    onClick={handleLoadLatestCached}
-                    className="min-h-[44px] rounded-md border border-instrumentBorder bg-obsidian px-2 text-[11px] font-medium text-slate-100 hover:border-amber-400"
-                  >
-                    {t.loadLatestCached}: {latestCached.name}
-                  </button>
-                )}
-
-                <a
-                  href={irsaDirectUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center rounded-md border border-instrumentBorder bg-obsidian px-2 text-[11px] font-medium text-amber-300 hover:border-amber-400"
-                >
-                  {t.openIrsaDirect}
-                </a>
-              </div>
+              )}
+              <a
+                href={irsaDirectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-amber-300 hover:border-amber-400"
+              >
+                {t.openIrsaDirect}
+              </a>
             </div>
-            <p className="line-clamp-1 text-[10px] text-slate-400">{t.offlineHint}</p>
-          </section>
+          </div>
         )}
 
         {manifest && (

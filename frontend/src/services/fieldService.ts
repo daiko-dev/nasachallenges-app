@@ -88,7 +88,7 @@ export async function fetchField(
   }
 
   let statusCode = 0;
-  let errorDetail = 'Live SPHEREx backend unreachable';
+  let errorDetail = 'Live backend unreachable; using precomputed demo cutouts';
 
   try {
     const response = await fetch(url, {

@@ -14,9 +14,9 @@ export const translations = {
     fallbackBanner: 'Live API unavailable. Displaying cached SPHEREx observation for this region.',
     emptyField: 'No SPHEREx coverage found at these coordinates.',
     retryButton: 'Retry live query',
-    offlineTitle: 'Live SPHEREx backend unreachable',
+    offlineTitle: 'Demo mode',
     offlineHint:
-      'Showing pre-computed SPHEREx multi-epoch cutouts for interactive inspection. Connect the FastAPI backend (port 8000) to stream live DR1/QR3 FITS cutouts, or inspect this coordinate on NASA IRSA.',
+      'Live backend not connected; showing precomputed SPHEREx multi-epoch cutouts for interactive inspection. Set VITE_API_BASE_URL to a live API to stream DR1/QR3 FITS cutouts.',
     loadLatestCached: 'Load latest cached field',
     openIrsaDirect: 'Open coordinate in NASA IRSA',
     nasaCredit: 'SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive',
@@ -41,9 +41,9 @@ export const translations = {
     fallbackBanner: 'API en vivo no disponible. Mostrando la observacion en cache para esta region.',
     emptyField: 'No se encontro cobertura de SPHEREx en estas coordenadas.',
     retryButton: 'Reintentar consulta en vivo',
-    offlineTitle: 'Backend en vivo de SPHEREx no disponible',
+    offlineTitle: 'Modo demo',
     offlineHint:
-      'Mostrando recortes multiepoca precalculados de SPHEREx para inspeccion interactiva. Conecta el backend FastAPI (puerto 8000) para descargar FITS DR1/QR3 en vivo, o abre NASA IRSA.',
+      'Backend en vivo no conectado; mostrando recortes multiepoca precargados de SPHEREx para inspeccion interactiva. Configura VITE_API_BASE_URL con la API en vivo para transmitir FITS DR1/QR3.',
     loadLatestCached: 'Cargar ultimo campo en cache',
     openIrsaDirect: 'Abrir coordenada en NASA IRSA',
     nasaCredit: 'SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive',
