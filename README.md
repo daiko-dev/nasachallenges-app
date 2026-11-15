@@ -1,6 +1,7 @@
-# NASA Space Apps Challenge 2026 - Planet X & SPHEREx
+# SphereX Viewer and Data Visualizer (SVDV)
+### NASA Space Apps Challenge 2026 — Desafío: Planet X and SPHEREx
 
-Plataforma de Exploración y Análisis Astronómico basada en los datos espectrales del satélite **SPHEREx** de la NASA (102 bandas en el infrarrojo cercano).
+Plataforma de Exploración y Análisis Astronómico interactiva basada en los datos espectrales del telescopio espacial **SPHEREx** de la NASA (102 bandas en el infrarrojo cercano).
 
 ---
 
@@ -11,13 +12,13 @@ Plataforma de Exploración y Análisis Astronómico basada en los datos espectra
 
 ---
 
-## 🌌 Arquitectura del Proyecto
+## 🌌 Arquitectura del Proyecto (SVDV)
 
 El sistema se compone de cuatro módulos interconectados:
 
 1. **Módulo 1: Explorador Visual 3D (Frontend)**
-   - Visor 3D interactivo en WebGL / Three.js.
-   - Navegación estelar y controles para alternar entre las 102 bandas infrarrojas y líneas temporales de observación.
+   - Visor 3D interactivo en WebGL / WWT (WorldWide Telescope) / Three.js.
+   - Navegación estelar inmersiva y controles para alternar entre las 102 bandas infrarrojas y líneas temporales de observación.
 2. **Módulo 2: Sistema de Actualizaciones y Datos Oficiales**
    - Servicio backend para consultar datos astronómicos en tiempo real desde el Infrared Science Archive (IRSA) de la NASA usando `astroquery`.
 3. **Módulo 3: Motor de Análisis Científico**
@@ -32,7 +33,7 @@ El sistema se compone de cuatro módulos interconectados:
 ## 📁 Estructura del Repositorio
 
 ```text
-nasachallenges-app/
+svdv/
 ├── backend/                  # API REST en Python (FastAPI) - Gestionado con uv
 │   ├── app/
 │   │   ├── api/              # Endpoints v1

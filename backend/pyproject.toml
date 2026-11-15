@@ -1,7 +1,7 @@
 [project]
-name = "nasachallenges-backend"
+name = "svdv-backend"
 version = "0.1.0"
-description = "NASA Space Apps Challenge 2026 - SPHEREx Spectral Analysis & RAG API"
+description = "SphereX Viewer and Data Visualizer (SVDV) - NASA Space Apps Challenge 2026"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
