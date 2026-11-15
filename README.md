@@ -117,10 +117,10 @@ El proyecto cuenta con cobertura integral tanto en el frontend como en el backen
 
 ### Pruebas de Backend (pytest)
 ```bash
-# Desde la carpeta backend (o con .venv activo):
+# Desde la carpeta backend (con el entorno virtual activo):
 pytest
 ```
-*37 pruebas unitarias pasando:*
+*48 pruebas unitarias pasando (100% éxito):*
 - `test_schemas.py`: Serialización y contratos de datos IVOA / SPHEREx.
 - `test_query.py`: Mapeo de detectores, normalización de RA (0–360°) y búsquedas SIA2.
 - `test_cutouts.py`: Estructura de 6 HDUs, rangos espectrales y protección de bordes.
@@ -128,7 +128,8 @@ pytest
 - `test_detect.py`: DAOStarFinder y cKDTree para identificación de candidatos en movimiento.
 - `test_validate.py`: Validación de asteroides con JPL SBIdent.
 - `test_report.py`: Validación estricta anti-alucinaciones numéricas.
-- `test_api.py`: Endpoints REST, CORS y degradación elegante sin cobertura.
+- `test_rag.py`: Embeddings de transformadores auto-hospedados (384-dim), persistencia en Supabase, funciones vectoriales y endpoints de informe científico.
+- `test_api.py`: Endpoints REST, CORS, códigos de estado y degradación elegante.
 
 ### Pruebas de Frontend (vitest)
 ```bash
@@ -140,6 +141,44 @@ pnpm test
 - Blink Viewer y compatibilidad de longitudes de onda.
 - Tarjeta de evidencia y trayectorias astrométricas.
 - Cache en localStorage y fallbacks automáticos ante fallas de red.
+
+---
+
+## 🗄️ Configuración de Supabase RAG (pgvector)
+
+SVDV almacena manifiestos, candidatos astrométricos y vectores semánticos en Supabase (`https://bhngctabyagxmgceeapw.supabase.co`) con la extensión `pgvector`:
+
+1. **Ejecutar la migración SQL**:
+   El script SQL está ubicado en:
+   `supabase/migrations/20261115_01_init_svdv_rag.sql`
+   Crea las tablas `manifests`, `candidates`, `candidate_embeddings` (vector 384) y la función de búsqueda semántica `match_candidate_embeddings` con índice HNSW y políticas RLS.
+
+2. **Variables de entorno (`.env`)**:
+   ```env
+   SUPABASE_URL=https://bhngctabyagxmgceeapw.supabase.co
+   SUPABASE_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   API_KEY=your_svdv_api_key_secret
+   EMBEDDING_MODEL_NAME=sentence-transformers/all-MiniLM-L6-v2
+   EMBEDDING_DIMENSION=384
+   ```
+
+---
+
+## ☁️ Despliegue en Render (Render Blueprint)
+
+El repositorio incluye la configuración lista para producción con Docker y Render Blueprint:
+
+- **[Dockerfile](Dockerfile)**: Construcción optimizada multi-etapa para FastAPI + Astropy.
+- **[render.yaml](render.yaml)**: Definición de servicios para:
+  1. `svdv-backend`: Servicio web FastAPI contenerizado.
+  2. `svdv-frontend`: Sitio estático Vite / React.
+  3. `svdv-nightly-rag-sync`: Tarea cron nocturna (02:00 UTC) para sincronizar embeddings semánticos.
+
+Para desplegar en Render:
+1. Conecta tu repositorio de GitHub a tu cuenta de Render.
+2. Selecciona **New +** -> **Blueprint**.
+3. Render detectará automáticamente el archivo `render.yaml` y aprovisionará los servicios web y la tarea programada.
 
 ---
 

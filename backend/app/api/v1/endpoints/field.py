@@ -9,6 +9,7 @@ from app.schemas.manifest import (
 from app.services.query import normalize_ra, search_epochs, UpstreamIRSAError
 from app.services.fields import get_curated_field
 from app.services.frames import lambda_matched
+from app.core.config import settings
 
 router = APIRouter()
 
@@ -36,7 +37,12 @@ def get_field(
     now_utc = datetime.now(timezone.utc).isoformat()
     radius_deg = max(0.02, min(fov / 2.0, 0.5))
     try:
-        epochs_records = search_epochs(ra=norm_ra, dec=dec, radius_deg=radius_deg)
+        epochs_records = search_epochs(
+            ra=norm_ra,
+            dec=dec,
+            radius_deg=radius_deg,
+            timeout_s=settings.IRSA_TIMEOUT_SECONDS
+        )
     except UpstreamIRSAError as exc:
         # Review Focus 4: Propagate upstream timeout so frontend can trigger fallback mode
         raise HTTPException(status_code=504, detail=f"Upstream IRSA gateway timeout: {exc}")

@@ -64,6 +64,10 @@ class FieldManifest(BaseModel):
     message: Optional[str] = None
     provenance: ProvenanceInfo
 
+    @property
+    def fieldId(self) -> str:
+        return self.id
+
 class HealthStatus(BaseModel):
     irsa: Literal["up", "down"]
     checkedUtc: str

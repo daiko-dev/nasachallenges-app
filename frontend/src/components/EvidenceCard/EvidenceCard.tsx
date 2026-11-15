@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import type { Candidate, FieldManifest } from '../../types/spherex';
 import { candidateLabel } from '../../utils/candidates';
+import { ReportModal } from '../ReportModal';
 
 interface EvidenceCardProps {
   manifest: FieldManifest;
@@ -14,6 +16,7 @@ export function EvidenceCard({
   onSelectCandidate,
   lang,
 }: EvidenceCardProps) {
+  const [isReportOpen, setIsReportOpen] = useState(false);
   const candidates = manifest.candidates;
   const active: Candidate | undefined =
     candidates.find((c) => c.id === selectedCandidateId) ?? candidates[0];
@@ -144,6 +147,15 @@ export function EvidenceCard({
                   ? `Objeto candidato detectado en ${active.track.length} epocas con S/N ${active.snr.toFixed(1)}. Requiere inspeccion fotometrica adicional en IRSA.`
                   : `Candidate object tracked across ${active.track.length} epochs at S/N ${active.snr.toFixed(1)}. Requires additional photometric verification in IRSA.`)}
             </p>
+            <div className="mt-2">
+              <button
+                type="button"
+                onClick={() => setIsReportOpen(true)}
+                className="inline-flex items-center rounded border border-instrumentBorder bg-obsidian px-2.5 py-1 text-xs font-medium text-amber-300 hover:border-amber-400"
+              >
+                {lang === 'es' ? '📄 Ver informe RAG detallado' : '📄 View detailed RAG report'}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -157,6 +169,16 @@ export function EvidenceCard({
           ? 'no es un descubrimiento confirmado ni una deteccion de Planet X. Toda firma requiere validacion astronomica independiente.'
           : 'not a confirmed discovery and not a Planet X detection. Every candidate requires independent astronomical validation.'}
       </div>
+
+      {active && (
+        <ReportModal
+          isOpen={isReportOpen}
+          onClose={() => setIsReportOpen(false)}
+          manifest={manifest}
+          candidate={active}
+          lang={lang}
+        />
+      )}
     </section>
   );
 }

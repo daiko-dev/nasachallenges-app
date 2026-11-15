@@ -293,6 +293,19 @@ def get_all_curated_fields() -> List[FieldManifest]:
         create_wise0855_manifest()
     ]
 
+def get_curated_field_by_id(field_id: str) -> Optional[FieldManifest]:
+    """Finds a curated field by its exact ID or known alias."""
+    aliases = {
+        "m101-pinwheel": "curated-m101-control",
+        "barnards-star": "curated-barnards-star",
+        "wise0855": "curated-wise0855"
+    }
+    target_id = aliases.get(field_id, field_id)
+    for f in get_all_curated_fields():
+        if f.id == target_id or getattr(f, "fieldId", None) == target_id:
+            return f
+    return None
+
 def get_curated_field(ra: float, dec: float, fov_deg: float = 0.25, tol_deg: float = 0.5) -> Optional[FieldManifest]:
     """Finds curated field closest to target (ra, dec) within tolerance."""
     fields = get_all_curated_fields()
