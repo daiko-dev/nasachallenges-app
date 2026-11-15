@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "id": "curated-m101-control",
+  "name": "M101 Control Field",
+  "ra": 210.8023,
+  "dec": 54.349,
+  "fovDeg": 0.25,
+  "grid": {
+    "widthPx": 60,
+    "heightPx": 60,
+    "pixScaleArcsec": 6.2
+  },
+  "epochs": [
+    {
+      "id": "e01",
+      "obsId": "2026W03_1A_0210_1",
+      "utc": "2026-01-14T03:22:10Z",
+      "release": "dr1",
+      "detector": 2,
+      "lambdaUm": 1.12,
+      "bandwidthUm": 0.03,
+      "frameUrl": "/data/curated-m101-control/frames/e01.png",
+      "sourceUrl": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/m101_e01.fits"
+    },
+    {
+      "id": "e02",
+      "obsId": "2026W08_2B_0412_2",
+      "utc": "2026-02-19T08:45:00Z",
+      "release": "qr3",
+      "detector": 2,
+      "lambdaUm": 1.13,
+      "bandwidthUm": 0.03,
+      "frameUrl": "/data/curated-m101-control/frames/e02.png",
+      "sourceUrl": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/m101_e02.fits"
+    },
+    {
+      "id": "e03",
+      "obsId": "2026W14_1C_0819_4",
+      "utc": "2026-04-02T14:12:30Z",
+      "release": "qr3",
+      "detector": 4,
+      "lambdaUm": 2.45,
+      "bandwidthUm": 0.06,
+      "frameUrl": "/data/curated-m101-control/frames/e03.png",
+      "sourceUrl": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/m101_e03.fits"
+    }
+  ],
+  "matchedPairs": [
+    [
+      "e01",
+      "e02"
+    ]
+  ],
+  "candidates": [
+    {
+      "id": "CAND-M101-01",
+      "kind": "moved_source",
+      "status": "candidate",
+      "track": [
+        {
+          "epochId": "e01",
+          "x": 18.0,
+          "y": 22.0,
+          "ra": 210.7985,
+          "dec": 54.3512
+        },
+        {
+          "epochId": "e02",
+          "x": 24.0,
+          "y": 26.0,
+          "ra": 210.8012,
+          "dec": 54.3498
+        },
+        {
+          "epochId": "e03",
+          "x": 31.0,
+          "y": 31.0,
+          "ra": 210.8044,
+          "dec": 54.3481
+        }
+      ],
+      "snr": 11.2,
+      "match": {
+        "catalog": "JPL SBIdent",
+        "name": "Asteroid (5812) Jayleno",
+        "sepArcsec": 2.4
+      },
+      "explanation": {
+        "text": "Point source exhibiting consistent linear motion (+6 px/epoch) across 78 days. Matched within 2.4 arcsec to known main-belt asteroid (5812) Jayleno in JPL SBIdent.",
+        "source": "template"
+      }
+    }
+  ],
+  "message": null,
+  "provenance": {
+    "collection": "spherex_dr1+qr3",
+    "retrievedUtc": "2026-11-15T00:00:00Z",
+    "synthetic": false,
+    "credit": "SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive"
+  }
+}

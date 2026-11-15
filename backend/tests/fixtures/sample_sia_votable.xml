@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VOTABLE version="1.4" xmlns="http://www.ivoa.net/xml/VOTable/v1.4">
+  <RESOURCE type="results">
+    <TABLE ID="sia_results">
+      <FIELD name="obs_publisher_did" datatype="char" arraysize="*"/>
+      <FIELD name="collection" datatype="char" arraysize="*"/>
+      <FIELD name="access_url" datatype="char" arraysize="*"/>
+      <FIELD name="t_mjd" datatype="double"/>
+      <FIELD name="s_ra" datatype="double"/>
+      <FIELD name="s_dec" datatype="double"/>
+      <FIELD name="detector" datatype="int"/>
+      <FIELD name="em_min" datatype="double"/>
+      <FIELD name="em_max" datatype="double"/>
+      <DATA>
+        <TABLEDATA>
+          <TR>
+            <TD>ivo://irsa.ipac/spherex/level2_SPX001D3_spx_l2b-60400</TD>
+            <TD>spherex_dr1</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/SPX001D3.fits</TD>
+            <TD>60400.25</TD>
+            <TD>210.8023</TD>
+            <TD>54.3490</TD>
+            <TD>3</TD>
+            <TD>1.40e-6</TD>
+            <TD>1.44e-6</TD>
+          </TR>
+          <TR>
+            <TD>ivo://irsa.ipac/spherex/level2_SPX002D3_spx_l2b-60580</TD>
+            <TD>spherex_dr1</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/SPX002D3.fits</TD>
+            <TD>60580.45</TD>
+            <TD>210.8021</TD>
+            <TD>54.3491</TD>
+            <TD>3</TD>
+            <TD>1.40e-6</TD>
+            <TD>1.44e-6</TD>
+          </TR>
+          <TR>
+            <TD>ivo://irsa.ipac/spherex/level2_SPX003D1_spx_l2b-60720</TD>
+            <TD>spherex_qr3</TD>
+            <TD>https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/SPX003D1.fits</TD>
+            <TD>60720.10</TD>
+            <TD>210.8025</TD>
+            <TD>54.3488</TD>
+            <TD>1</TD>
+            <TD>0.95e-6</TD>
+            <TD>1.02e-6</TD>
+          </TR>
+        </TABLEDATA>
+      </DATA>
+    </TABLE>
+  </RESOURCE>
+</VOTABLE>

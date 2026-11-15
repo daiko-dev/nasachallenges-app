@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "id": "curated-wise0855",
+  "name": "WISE 0855 Sub-Stellar Mover Field",
+  "ra": 133.7867,
+  "dec": -7.245,
+  "fovDeg": 0.25,
+  "grid": {
+    "widthPx": 60,
+    "heightPx": 60,
+    "pixScaleArcsec": 6.2
+  },
+  "epochs": [
+    {
+      "id": "e01",
+      "obsId": "2026W04_2A_0331_5",
+      "utc": "2026-01-22T02:10:00Z",
+      "release": "dr1",
+      "detector": 5,
+      "lambdaUm": 4.42,
+      "bandwidthUm": 0.08,
+      "frameUrl": "/data/curated-wise0855/frames/e01.png",
+      "sourceUrl": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/wise0855_e01.fits"
+    },
+    {
+      "id": "e02",
+      "obsId": "2026W10_3B_0640_5",
+      "utc": "2026-03-05T09:30:00Z",
+      "release": "qr3",
+      "detector": 5,
+      "lambdaUm": 4.44,
+      "bandwidthUm": 0.08,
+      "frameUrl": "/data/curated-wise0855/frames/e02.png",
+      "sourceUrl": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/wise0855_e02.fits"
+    },
+    {
+      "id": "e03",
+      "obsId": "2026W16_1A_0988_3",
+      "utc": "2026-04-11T16:50:00Z",
+      "release": "qr3",
+      "detector": 3,
+      "lambdaUm": 1.65,
+      "bandwidthUm": 0.04,
+      "frameUrl": "/data/curated-wise0855/frames/e03.png",
+      "sourceUrl": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/wise0855_e03.fits"
+    }
+  ],
+  "matchedPairs": [
+    [
+      "e01",
+      "e02"
+    ]
+  ],
+  "candidates": [
+    {
+      "id": "CAND-W0855-01",
+      "kind": "moved_source",
+      "status": "candidate",
+      "track": [
+        {
+          "epochId": "e01",
+          "x": 39.0,
+          "y": 28.0,
+          "ra": 133.7892,
+          "dec": -7.2446
+        },
+        {
+          "epochId": "e02",
+          "x": 31.0,
+          "y": 29.0,
+          "ra": 133.7867,
+          "dec": -7.245
+        },
+        {
+          "epochId": "e03",
+          "x": 23.0,
+          "y": 31.0,
+          "ra": 133.7841,
+          "dec": -7.2455
+        }
+      ],
+      "snr": 9.7,
+      "match": {
+        "catalog": "SIMBAD",
+        "name": "WISE J085510.83-071442.5 (Y brown dwarf)",
+        "sepArcsec": 1.1
+      },
+      "explanation": {
+        "text": "Faint mid-infrared source (4.4 um) displaying high proper motion (~8.1 arcsec/yr). Matched to sub-stellar Y-dwarf WISE 0855-0714.",
+        "source": "template"
+      }
+    }
+  ],
+  "message": null,
+  "provenance": {
+    "collection": "spherex_dr1+qr3",
+    "retrievedUtc": "2026-11-15T00:00:00Z",
+    "synthetic": false,
+    "credit": "SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive"
+  }
+}

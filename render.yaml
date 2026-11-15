@@ -1,0 +1,65 @@
+services:
+  # -------------------------------------------------------------
+  # SVDV Backend Service (FastAPI + Science Pipelines)
+  # -------------------------------------------------------------
+  - type: web
+    name: svdv-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: SUPABASE_URL
+        value: https://bhngctabyagxmgceeapw.supabase.co
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: API_KEY
+        generateValue: true
+      - key: NASA_API_KEY
+        value: DEMO_KEY
+      - key: PORT
+        value: 8000
+    healthCheckPath: /api/v1/health
+
+  # -------------------------------------------------------------
+  # SVDV Frontend Web Service (Vite Static Site)
+  # -------------------------------------------------------------
+  - type: web
+    name: svdv-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    plan: free
+    region: oregon
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: svdv-backend
+          property: host
+
+  # -------------------------------------------------------------
+  # Cron Job: Nightly RAG embedding sync / refresh
+  # -------------------------------------------------------------
+  - type: cron
+    name: svdv-nightly-rag-sync
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    schedule: "0 2 * * *"
+    command: /app/.venv/bin/python -m app.services.rag --sync
+    plan: free
+    region: oregon
+    envVars:
+      - key: SUPABASE_URL
+        value: https://bhngctabyagxmgceeapw.supabase.co
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: API_KEY
+        fromService:
+          type: web
+          name: svdv-backend
+          property: host
