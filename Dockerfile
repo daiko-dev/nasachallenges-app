@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # Install uv (Python package manager)
-RUN pip install uv==0.9.6
+RUN pip install uv
 
 # Set working directory
 WORKDIR /app
@@ -42,5 +42,5 @@ EXPOSE ${PORT:-8000}
 # Switch to non-root user
 USER appuser
 
-# Command to run the API
-CMD ["/app/.venv/bin/uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8000}"]
+# Command to run the API (shell form so ${PORT} expands)
+CMD /app/.venv/bin/uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
