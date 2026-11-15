@@ -12,7 +12,7 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000"
     ]
     CACHE_DIR: str = ".cache"
-    IRSA_TIMEOUT_SECONDS: float = 5.0
+    IRSA_TIMEOUT_SECONDS: float = 60.0
     
     # Supabase RAG configuration
     SUPABASE_URL: str = "https://bhngctabyagxmgceeapw.supabase.co"

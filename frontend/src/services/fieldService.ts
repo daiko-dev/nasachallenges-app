@@ -3,7 +3,7 @@ import type { FieldError, FieldManifest } from '../types/spherex';
 const DEFAULT_API_BASE = 'http://localhost:8000/api/v1';
 const CACHE_PREFIX = 'svdv:field:';
 const LATEST_KEY = 'svdv:field:latest';
-const REQUEST_TIMEOUT_MS = 15000;
+const REQUEST_TIMEOUT_MS = 75000;
 
 export interface FieldSuccessResult {
   ok: true;

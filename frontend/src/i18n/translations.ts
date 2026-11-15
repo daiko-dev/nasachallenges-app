@@ -16,7 +16,7 @@ export const translations = {
     retryButton: 'Retry live query',
     offlineTitle: 'Demo mode',
     offlineHint:
-      'Live backend not connected; showing precomputed SPHEREx multi-epoch cutouts for interactive inspection. Set VITE_API_BASE_URL to a live API to stream DR1/QR3 FITS cutouts.',
+      'Live query to NASA/IPAC IRSA (SPHEREx DR1/QR3) is unavailable right now because IRSA is temporarily degraded. Showing precomputed synthetic demo cutouts. When IRSA returns to 100%, this app will display the live official SPHEREx data for these coordinates.',
     loadLatestCached: 'Load latest cached field',
     openIrsaDirect: 'Open coordinate in NASA IRSA',
     nasaCredit: 'SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive',
@@ -43,7 +43,7 @@ export const translations = {
     retryButton: 'Reintentar consulta en vivo',
     offlineTitle: 'Modo demo',
     offlineHint:
-      'Backend en vivo no conectado; mostrando recortes multiepoca precargados de SPHEREx para inspeccion interactiva. Configura VITE_API_BASE_URL con la API en vivo para transmitir FITS DR1/QR3.',
+      'Consulta en vivo a NASA/IPAC IRSA (SPHEREx DR1/QR3) no disponible ahora mismo porque IRSA está degradado temporalmente. Se muestran recortes sintéticos de demostración. Cuando IRSA vuelva al 100%, esta app mostrará los datos oficiales de SPHEREx en vivo para estas coordenadas.',
     loadLatestCached: 'Cargar ultimo campo en cache',
     openIrsaDirect: 'Abrir coordenada en NASA IRSA',
     nasaCredit: 'SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive',

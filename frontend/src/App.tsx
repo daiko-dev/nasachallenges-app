@@ -371,38 +371,41 @@ export function App() {
         {!loading && fieldError && (
           <div
             role="status"
-            className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-instrumentBorder/60 bg-obsidian/70 px-3 py-1.5 text-xs text-slate-400"
+            className="flex flex-col gap-1.5 rounded-md border border-instrumentBorder/60 bg-obsidian/70 px-3 py-1.5 text-xs text-slate-400"
           >
-            <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500" aria-hidden="true" />
-              {t.offlineTitle} · {t.activeTargetLabel} {view.ra.toFixed(4)}°, {view.dec.toFixed(4)}°
-            </span>
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => loadTarget(view)}
-                className="min-h-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-slate-300 hover:border-amber-400"
-              >
-                {t.retryButton}
-              </button>
-              {latestCached && (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="inline-flex items-center gap-1.5 font-semibold text-amber-300">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500" aria-hidden="true" />
+                {t.offlineTitle} · RA {view.ra.toFixed(4)}°, Dec {view.dec.toFixed(4)}°
+              </span>
+              <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  onClick={handleLoadLatestCached}
+                  onClick={() => loadTarget(view)}
                   className="min-h-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-slate-300 hover:border-amber-400"
                 >
-                  {t.loadLatestCached}
+                  {t.retryButton}
                 </button>
-              )}
-              <a
-                href={irsaDirectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] items-center rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-amber-300 hover:border-amber-400"
-              >
-                {t.openIrsaDirect}
-              </a>
+                {latestCached && (
+                  <button
+                    type="button"
+                    onClick={handleLoadLatestCached}
+                    className="min-h-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-slate-300 hover:border-amber-400"
+                  >
+                    {t.loadLatestCached}
+                  </button>
+                )}
+                <a
+                  href={irsaDirectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-[44px] items-center rounded border border-instrumentBorder bg-obsidian px-2 text-[10px] text-amber-300 hover:border-amber-400"
+                >
+                  {t.openIrsaDirect}
+                </a>
+              </div>
             </div>
+            <p className="max-w-[70ch] text-[10px] leading-snug text-slate-500">{t.offlineHint}</p>
           </div>
         )}
 
