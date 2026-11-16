@@ -8,6 +8,7 @@ interface BlinkCanvasProps {
   selectedCandidateId: string | null;
   onSelectCandidate: (candidateId: string) => void;
   lang: 'en' | 'es';
+  selectedEpochId?: string | null;
 }
 
 function getSafe2dContext(canvas: HTMLCanvasElement | null): CanvasRenderingContext2D | null {
@@ -24,6 +25,7 @@ export function BlinkCanvas({
   selectedCandidateId,
   onSelectCandidate,
   lang,
+  selectedEpochId,
 }: BlinkCanvasProps) {
   const epochs = useMemo(() => sortedEpochs(manifest), [manifest]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,6 +37,16 @@ export function BlinkCanvas({
   const [loadedImages, setLoadedImages] = useState<Record<string, HTMLImageElement>>({});
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Sync with externally selected epoch from BandControls
+  useEffect(() => {
+    if (!selectedEpochId) return;
+    const idx = epochs.findIndex((e) => e.id === selectedEpochId);
+    if (idx !== -1) {
+      setActiveIndex(idx);
+      setIsPlaying(false);
+    }
+  }, [selectedEpochId, epochs]);
 
   // Reset indices when manifest changes
   useEffect(() => {
@@ -97,7 +109,7 @@ export function BlinkCanvas({
     canvas.height = size;
     ctx.imageSmoothingEnabled = false;
 
-    ctx.fillStyle = '#0A0D14';
+    ctx.fillStyle = '#090d13';
     ctx.fillRect(0, 0, size, size);
 
     const drawSynthetic60x60Fallback = (epoch: Epoch) => {
@@ -107,7 +119,7 @@ export function BlinkCanvas({
       const cellH = size / gridH;
       const isLongWave = epoch.lambdaUm >= 2.2;
 
-      ctx.fillStyle = isLongWave ? '#0c0f17' : '#090d16';
+      ctx.fillStyle = isLongWave ? '#0e131b' : '#0b0f16';
       ctx.fillRect(0, 0, size, size);
 
       // Deterministic pixel matrix from manifest coordinates + epoch wavelength
@@ -122,8 +134,8 @@ export function BlinkCanvas({
         const sy = Math.floor(rand() * (gridH - 6)) + 3;
         const lum = Math.floor(95 + rand() * 145);
         ctx.fillStyle = isLongWave
-          ? `rgb(${Math.min(255, lum + 20)}, ${lum}, ${Math.max(40, lum - 25)})`
-          : `rgb(${Math.max(40, lum - 15)}, ${lum}, ${Math.min(255, lum + 25)})`;
+          ? `rgb(${Math.min(255, lum + 15)}, ${lum}, ${Math.max(40, lum - 20)})`
+          : `rgb(${Math.max(40, lum - 15)}, ${lum}, ${Math.min(255, lum + 20)})`;
         ctx.fillRect(Math.round(sx * cellW), Math.round(sy * cellH), Math.ceil(cellW * 1.4), Math.ceil(cellH * 1.4));
       }
 
@@ -131,7 +143,7 @@ export function BlinkCanvas({
       manifest.candidates.forEach((cand) => {
         const pt = cand.track.find((t) => t.epochId === epoch.id);
         if (pt) {
-          ctx.fillStyle = '#FDE68A';
+          ctx.fillStyle = '#fde68a';
           ctx.fillRect(
             Math.round((pt.x - 1) * cellW),
             Math.round((pt.y - 1) * cellH),
@@ -156,18 +168,18 @@ export function BlinkCanvas({
       } else if (!failedImages[epoch.id]) {
         drawSynthetic60x60Fallback(epoch);
       } else {
-        ctx.fillStyle = '#121722';
+        ctx.fillStyle = '#10151e';
         ctx.fillRect(0, 0, size, size);
-        ctx.strokeStyle = '#64748B';
+        ctx.strokeStyle = '#222a36';
         ctx.lineWidth = 1;
         ctx.strokeRect(8, 8, size - 16, size - 16);
-        ctx.fillStyle = '#CBD5E1';
+        ctx.fillStyle = '#cbd5e1';
         ctx.font = '12px Inter, system-ui, sans-serif';
         ctx.textAlign = 'center';
         const statusText =
           lang === 'es' ? 'Imagen FITS/PNG no disponible' : 'Frame PNG unavailable';
         ctx.fillText(statusText, size / 2, size / 2 - 6);
-        ctx.fillStyle = '#94A3B8';
+        ctx.fillStyle = '#94a3b8';
         ctx.fillText(`${epoch.obsId} (${epoch.lambdaUm.toFixed(2)} um)`, size / 2, size / 2 + 14);
       }
       ctx.restore();
@@ -178,8 +190,8 @@ export function BlinkCanvas({
       const splitX = Math.round((splitPercent / 100) * size);
       drawFrame(activeEpoch, splitX);
 
-      ctx.strokeStyle = '#F59E0B';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(splitX, 0);
       ctx.lineTo(splitX, size);
@@ -198,8 +210,8 @@ export function BlinkCanvas({
       manifest.candidates.forEach((cand: Candidate) => {
         const isSelected = cand.id === selectedCandidateId;
         if (cand.track.length > 1) {
-          ctx.strokeStyle = isSelected ? '#F59E0B' : '#94A3B8';
-          ctx.lineWidth = isSelected ? 2 : 1.25;
+          ctx.strokeStyle = isSelected ? '#f59e0b' : '#64748b';
+          ctx.lineWidth = isSelected ? 2 : 1;
           ctx.beginPath();
           cand.track.forEach((pt, idx) => {
             const px = pt.x * scaleX;
@@ -214,10 +226,10 @@ export function BlinkCanvas({
         if (pointInEpoch) {
           const px = pointInEpoch.x * scaleX;
           const py = pointInEpoch.y * scaleY;
-          ctx.strokeStyle = isSelected ? '#F59E0B' : '#6EE7B7';
-          ctx.lineWidth = 2;
+          ctx.strokeStyle = isSelected ? '#f59e0b' : '#94a3b8';
+          ctx.lineWidth = 1.5;
           ctx.beginPath();
-          ctx.arc(px, py, isSelected ? 10 : 7, 0, Math.PI * 2);
+          ctx.arc(px, py, isSelected ? 9 : 6, 0, Math.PI * 2);
           ctx.stroke();
         }
       });
@@ -249,11 +261,11 @@ export function BlinkCanvas({
 
   if (epochs.length === 0 || !activeEpoch) {
     return (
-      <section className="border-b border-instrumentBorder/60 pb-4">
-        <h2 className="text-sm font-semibold text-slate-100">
+      <section className="border-b border-[#222a36] pb-3">
+        <h2 className="text-xs font-semibold text-slate-200 sm:text-sm">
           {lang === 'es' ? 'Comparador Blink de Epocas' : 'Epoch Blink Comparator'}
         </h2>
-        <p className="mt-1.5 text-xs text-slate-300">
+        <p className="mt-1 font-mono text-xs text-slate-400">
           {manifest.message ??
             (lang === 'es'
               ? 'No hay epocas de SPHEREx disponibles en estas coordenadas.'
@@ -272,26 +284,27 @@ export function BlinkCanvas({
       aria-label={lang === 'es' ? 'Comparador Blink de Epocas' : 'Epoch Blink Comparator'}
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      className="flex flex-col gap-2.5 border-b border-instrumentBorder/60 pb-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accentAmber"
+      className="flex flex-col gap-2 border-b border-[#222a36] pb-2.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-slate-400"
     >
       {manifest.provenance.synthetic && (
         <div
           role="alert"
-          className="rounded-md border border-red-500 bg-red-950 px-3 py-1.5 text-xs font-semibold text-red-200"
+          className="rounded border border-red-800/70 bg-[#200d0d] px-2.5 py-1 font-mono text-xs font-semibold text-red-200"
         >
           SYNTHETIC TEST DATA - not SPHEREx
         </div>
       )}
 
+      {/* Header: Title + Inline metadata + Controls */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="text-sm font-semibold text-slate-100">
-            {lang === 'es' ? 'Visor Blink de Epocas (Canvas 2D)' : 'Epoch Blink Comparator (2D Canvas)'}
+          <h2 className="text-xs font-semibold text-slate-200 sm:text-sm">
+            {lang === 'es' ? 'Comparador Blink de Epocas' : 'Epoch Blink Comparator'}
           </h2>
-          <p className="text-[11px] text-slate-300">
+          <span className="font-mono text-[11px] text-slate-400">
             {manifest.name} ({epochs.length}{' '}
             {lang === 'es' ? 'observaciones ordenadas por fecha' : 'observations sorted by UTC'})
-          </p>
+          </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
@@ -300,7 +313,7 @@ export function BlinkCanvas({
             disabled={epochs.length < 2}
             onClick={() => setIsPlaying((p) => !p)}
             aria-pressed={isPlaying}
-            className="min-h-[44px] rounded-md bg-accentAmber px-3 py-1.5 text-xs font-semibold text-obsidian hover:bg-amber-400 active:scale-[0.98] disabled:bg-slate-700 disabled:text-slate-300"
+            className="min-h-[32px] rounded border border-[#3b4759] bg-[#1a222e] px-2.5 font-mono text-xs font-medium text-slate-200 transition-colors hover:bg-[#232e3e] hover:text-white active:scale-[0.98] disabled:border-[#222a36] disabled:bg-[#12161f] disabled:text-slate-600"
           >
             {isPlaying
               ? lang === 'es'
@@ -318,7 +331,7 @@ export function BlinkCanvas({
             id="fps-select"
             value={fps}
             onChange={(e) => setFps(Number(e.target.value) as 1 | 2 | 4)}
-            className="min-h-[44px] rounded-md border border-instrumentBorder bg-obsidian px-2 text-xs text-slate-100"
+            className="min-h-[32px] rounded border border-[#2a3444] bg-[#090d13] px-2 font-mono text-xs text-slate-200"
           >
             <option value={1}>1 FPS</option>
             <option value={2}>2 FPS</option>
@@ -329,7 +342,7 @@ export function BlinkCanvas({
             type="button"
             onClick={() => setShowTracks((s) => !s)}
             aria-pressed={showTracks}
-            className="min-h-[44px] rounded-md border border-instrumentBorder bg-obsidian px-2.5 text-xs font-medium text-slate-200 hover:border-amber-400 active:scale-[0.98]"
+            className="min-h-[32px] rounded border border-[#2a3444] bg-[#090d13] px-2 font-mono text-xs font-medium text-slate-300 transition-colors hover:border-slate-400 hover:text-white active:scale-[0.98]"
           >
             {showTracks
               ? lang === 'es'
@@ -342,61 +355,64 @@ export function BlinkCanvas({
         </div>
       </div>
 
-      {/* Flat Hairline Active Epoch Telemetry Readout */}
-      <div className="grid grid-cols-2 gap-x-3 gap-y-1 border-y border-instrumentBorder/50 py-1.5 text-xs sm:grid-cols-4">
-        <div>
-          <span className="block text-[10px] uppercase tracking-wider text-slate-400">
+      {/* Telemetry Matrix Readout */}
+      <div className="grid grid-cols-2 gap-2 rounded border border-[#222a36] bg-[#090d13] p-1.5 sm:grid-cols-4">
+        <div className="border-r border-[#222a36] pr-1">
+          <span className="block font-mono text-[10px] text-slate-500 uppercase">
             {lang === 'es' ? 'Fecha UTC' : 'UTC Date'}
           </span>
-          <span className="font-mono text-[11px] font-medium text-slate-100 tabular-nums">
+          <span className="font-mono text-xs text-slate-200 tabular-nums">
             {activeEpoch.utc.slice(0, 19).replace('T', ' ')}
           </span>
         </div>
-        <div>
-          <span className="block text-[10px] uppercase tracking-wider text-slate-400">
+        <div className="border-r border-[#222a36] pr-1">
+          <span className="block font-mono text-[10px] text-slate-500 uppercase">
             {lang === 'es' ? 'Longitud de onda' : 'Wavelength'}
           </span>
-          <span className="font-mono text-[11px] font-semibold text-amber-300 tabular-nums">
+          <span className="font-mono text-xs font-medium text-slate-100 tabular-nums">
             {activeEpoch.lambdaUm.toFixed(3)} um
           </span>
         </div>
-        <div>
-          <span className="block text-[10px] uppercase tracking-wider text-slate-400">
+        <div className="border-r border-[#222a36] pr-1">
+          <span className="block font-mono text-[10px] text-slate-500 uppercase">
             {lang === 'es' ? 'Detector / Coleccion' : 'Detector / Release'}
           </span>
-          <span className="font-mono text-[11px] font-medium text-slate-100 tabular-nums">
+          <span className="font-mono text-xs text-slate-300 tabular-nums">
             D{activeEpoch.detector} ({activeEpoch.release.toUpperCase()})
           </span>
         </div>
         <div>
-          <span className="block text-[10px] uppercase tracking-wider text-slate-400">Obs ID</span>
-          <span className="block truncate font-mono text-[11px] font-medium text-slate-200 tabular-nums">
+          <span className="block font-mono text-[10px] text-slate-500 uppercase">Obs ID</span>
+          <span className="block truncate font-mono text-xs text-slate-400 tabular-nums">
             {activeEpoch.obsId}
           </span>
         </div>
       </div>
 
-      {/* Compact Side-by-Side Instrument Layout: Pixelated 2D Cutout + Timeline/Split Controls */}
+      {/* Side-by-Side Cutout Canvas & Stepper Controls */}
       <div className="grid grid-cols-1 items-start gap-2.5 sm:grid-cols-[168px_1fr]">
         <div className="flex flex-col items-center">
-          <canvas
-            ref={canvasRef}
-            width={290}
-            height={290}
-            style={{ imageRendering: 'pixelated' }}
-            className="h-[164px] w-[164px] rounded border border-instrumentBorder bg-obsidian"
-          />
-          <p className="mt-1 text-center font-mono text-[10px] text-slate-300 tabular-nums">
+          <div className="rounded border border-[#222a36] bg-[#090d13] p-0.5">
+            <canvas
+              ref={canvasRef}
+              width={290}
+              height={290}
+              style={{ imageRendering: 'pixelated' }}
+              className="h-[164px] w-[164px] bg-[#090d13]"
+            />
+          </div>
+          <span className="mt-1 text-center font-mono text-[10px] text-slate-400 tabular-nums">
             {lang === 'es'
               ? `Rejilla ${manifest.grid.widthPx}x${manifest.grid.heightPx} px (${manifest.grid.pixScaleArcsec}"/px)`
               : `Grid ${manifest.grid.widthPx}x${manifest.grid.heightPx} px (${manifest.grid.pixScaleArcsec}"/px)`}
-          </p>
+          </span>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <div>
-            <div className="mb-0.5 flex items-center justify-between text-xs text-slate-200">
-              <label htmlFor="epoch-slider" className="font-medium">
+        <div className="flex flex-col gap-2">
+          {/* Active Epoch Stepper */}
+          <div className="rounded border border-[#222a36] bg-[#090d13] p-2">
+            <div className="mb-1 flex items-center justify-between text-xs text-slate-200">
+              <label htmlFor="epoch-slider" className="font-mono text-[11px] text-slate-300">
                 {lang === 'es' ? 'Epoca activa' : 'Active epoch'} ({activeIndex + 1}/{epochs.length})
               </label>
               <div className="flex gap-1">
@@ -408,7 +424,7 @@ export function BlinkCanvas({
                     setActiveIndex((prev) => (prev - 1 + epochs.length) % epochs.length);
                   }}
                   aria-label={lang === 'es' ? 'Epoca anterior' : 'Previous epoch'}
-                  className="min-h-[38px] min-w-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-xs text-slate-100 hover:border-amber-400 active:scale-[0.98] disabled:text-slate-500"
+                  className="min-h-[30px] min-w-[36px] rounded border border-[#2a3444] bg-[#141a24] px-2 font-mono text-xs text-slate-300 transition-colors hover:border-slate-400 hover:text-white active:scale-[0.98] disabled:border-[#222a36] disabled:text-slate-600"
                 >
                   Prev
                 </button>
@@ -420,7 +436,7 @@ export function BlinkCanvas({
                     setActiveIndex((prev) => (prev + 1) % epochs.length);
                   }}
                   aria-label={lang === 'es' ? 'Siguiente epoca' : 'Next epoch'}
-                  className="min-h-[38px] min-w-[44px] rounded border border-instrumentBorder bg-obsidian px-2 text-xs text-slate-100 hover:border-amber-400 active:scale-[0.98] disabled:text-slate-500"
+                  className="min-h-[30px] min-w-[36px] rounded border border-[#2a3444] bg-[#141a24] px-2 font-mono text-xs text-slate-300 transition-colors hover:border-slate-400 hover:text-white active:scale-[0.98] disabled:border-[#222a36] disabled:text-slate-600"
                 >
                   Next
                 </button>
@@ -437,10 +453,10 @@ export function BlinkCanvas({
                 setIsPlaying(false);
                 setActiveIndex(Number(e.target.value));
               }}
-              className="w-full accent-amber-500"
+              className="w-full accent-slate-400"
             />
 
-            <div className="mt-1 flex flex-wrap gap-1">
+            <div className="mt-1.5 flex flex-wrap gap-1">
               {epochs.map((ep, idx) => {
                 const isActive = idx === activeIndex;
                 return (
@@ -451,14 +467,14 @@ export function BlinkCanvas({
                       setIsPlaying(false);
                       setActiveIndex(idx);
                     }}
-                    className={`rounded border px-2 py-0.5 text-left font-mono text-[10px] tabular-nums ${
+                    className={`rounded border px-2 py-0.5 text-left font-mono text-[10px] tabular-nums transition-colors ${
                       isActive
-                        ? 'border-accentAmber bg-amber-950/80 font-semibold text-amber-200'
-                        : 'border-instrumentBorder bg-obsidian text-slate-200 hover:border-amber-400'
+                        ? 'border-slate-400 bg-[#202936] font-medium text-white shadow-sm'
+                        : 'border-[#222a36] bg-[#10151e] text-slate-400 hover:border-[#384659] hover:text-slate-200'
                     }`}
                   >
-                    <span className="block">{ep.utc.slice(0, 10)}</span>
-                    <span className="text-[10px] text-slate-300">
+                    <span className="block font-medium">{ep.utc.slice(0, 10)}</span>
+                    <span className="text-[10px] text-slate-500">
                       {ep.lambdaUm.toFixed(2)} um | {ep.release.toUpperCase()}
                     </span>
                   </button>
@@ -467,12 +483,13 @@ export function BlinkCanvas({
             </div>
           </div>
 
+          {/* Split-Wipe Comparison Controls */}
           {epochs.length > 1 && compareEpoch && (
-            <div className="flex flex-col gap-1 border-t border-instrumentBorder/50 pt-1">
+            <div className="flex flex-col gap-1.5 rounded border border-[#222a36] bg-[#090d13] p-2">
               <div className="flex flex-wrap items-center justify-between gap-1.5">
                 <label
                   htmlFor="compare-epoch-select"
-                  className="text-[11px] font-medium text-slate-200"
+                  className="font-mono text-[10px] text-slate-400 uppercase"
                 >
                   {lang === 'es' ? 'Comparar contra epoca:' : 'Compare against epoch:'}
                 </label>
@@ -480,7 +497,7 @@ export function BlinkCanvas({
                   id="compare-epoch-select"
                   value={compareIndex}
                   onChange={(e) => setCompareIndex(Number(e.target.value))}
-                  className="min-h-[38px] rounded border border-instrumentBorder bg-obsidian px-2 font-mono text-[11px] text-slate-100"
+                  className="min-h-[30px] rounded border border-[#2a3444] bg-[#10151e] px-2 font-mono text-[11px] text-slate-200"
                 >
                   {epochs.map((ep, idx) => (
                     <option key={ep.id} value={idx}>
@@ -491,11 +508,11 @@ export function BlinkCanvas({
               </div>
 
               <div>
-                <div className="flex justify-between text-[11px] text-slate-300">
+                <div className="flex justify-between font-mono text-[11px] text-slate-300">
                   <label htmlFor="split-slider">
                     {lang === 'es' ? 'Cortina comparadora' : 'Split-wipe comparison'}
                   </label>
-                  <span className="font-mono tabular-nums">{splitPercent}%</span>
+                  <span className="font-medium text-slate-200 tabular-nums">{splitPercent}%</span>
                 </div>
                 <input
                   id="split-slider"
@@ -504,7 +521,7 @@ export function BlinkCanvas({
                   max={100}
                   value={splitPercent}
                   onChange={(e) => setSplitPercent(Number(e.target.value))}
-                  className="mt-0.5 w-full accent-amber-500"
+                  className="mt-1 w-full accent-slate-400"
                 />
               </div>
             </div>
@@ -522,8 +539,8 @@ export function BlinkCanvas({
       )}
 
       {manifest.candidates.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5 text-xs">
-          <span className="text-[11px] text-slate-300">
+        <div className="flex flex-wrap items-center gap-1.5 rounded border border-[#222a36] bg-[#090d13] p-1.5 text-xs">
+          <span className="font-mono text-[10px] text-slate-400 uppercase">
             {lang === 'es' ? 'Candidatos en campo:' : 'Field candidates:'}
           </span>
           {manifest.candidates.map((c) => (
@@ -531,10 +548,10 @@ export function BlinkCanvas({
               key={c.id}
               type="button"
               onClick={() => onSelectCandidate(c.id)}
-              className={`min-h-[44px] rounded border px-2.5 py-1 font-mono text-xs ${
+              className={`min-h-[30px] rounded border px-2 py-0.5 font-mono text-xs transition-colors ${
                 c.id === selectedCandidateId
-                  ? 'border-accentAmber bg-amber-950/80 font-semibold text-amber-200'
-                  : 'border-instrumentBorder bg-obsidian text-slate-200 hover:border-amber-400'
+                  ? 'border-slate-400 bg-[#202936] font-medium text-white'
+                  : 'border-[#222a36] bg-[#10151e] text-slate-400 hover:border-[#384659] hover:text-slate-200'
               }`}
             >
               {c.id} (S/N {c.snr.toFixed(1)})

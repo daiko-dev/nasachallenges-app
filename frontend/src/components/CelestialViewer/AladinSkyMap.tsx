@@ -1187,22 +1187,21 @@ export function AladinSkyMap({
         </div>
       )}
 
-      {/* Bottom-Left Floating 3D Sky Telemetry & Survey Control Strip */}
-      <div className="pointer-events-auto absolute bottom-10 left-2.5 z-20 flex max-w-[calc(100vw-20px)] flex-col gap-1.5 rounded-lg border border-instrumentBorder bg-instrument/95 px-3 py-2 text-xs text-slate-100 shadow-lg sm:left-4 lg:max-w-[680px]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-accentAmber" aria-hidden="true" />
-            <h2 className="text-xs font-semibold text-slate-100">
+      {/* Bottom-Left Scientific 3D Sky Telemetry & Survey Control Strip */}
+      <div className="pointer-events-auto absolute bottom-2 left-2 sm:left-3 z-20 flex max-w-[calc(100vw-20px)] flex-col gap-1.5 rounded border border-[#222a36] bg-[#10151e]/98 p-2 text-xs text-slate-200 shadow-md sm:max-w-[700px]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#222a36] pb-1">
+          <div className="flex items-center gap-1.5">
+            <h2 className="font-mono text-xs font-medium text-slate-300">
               {lang === 'es' ? 'Visor Celeste 3D (GPS del Cielo)' : '3D Celestial Viewer (Sky GPS)'}
             </h2>
           </div>
-          <p className="font-mono text-[11px] text-amber-300 tabular-nums">
+          <p className="font-mono text-[11px] text-slate-300 tabular-nums">
             RA {cursorCoords.ra.toFixed(4)} deg ({formatHms(cursorCoords.ra)}) | Dec{' '}
             {cursorCoords.dec.toFixed(4)} deg ({formatDms(cursorCoords.dec)})
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
           <label htmlFor="survey-select" className="sr-only">
             {lang === 'es' ? 'Capa de fondo' : 'Background survey'}
           </label>
@@ -1210,7 +1209,7 @@ export function AladinSkyMap({
             id="survey-select"
             value={survey}
             onChange={(e) => handleSurveyChange(e.target.value as SkySurveyKey)}
-            className="min-h-[44px] rounded-md border border-instrumentBorder bg-obsidian px-2.5 text-xs text-slate-100"
+            className="min-h-[32px] rounded border border-[#2a3444] bg-[#090d13] px-2 font-mono text-xs text-slate-200 transition-colors hover:border-slate-400"
           >
             {SURVEYS.map((s) => (
               <option key={s.key} value={s.key}>
@@ -1223,7 +1222,7 @@ export function AladinSkyMap({
             type="button"
             onClick={() => setProjectionMode((m) => (m === 'SIN' ? 'AIT' : 'SIN'))}
             aria-pressed={projectionMode === 'SIN'}
-            className="min-h-[44px] rounded-md border border-instrumentBorder bg-obsidian px-2.5 text-xs font-medium text-slate-200 hover:border-amber-400 active:scale-[0.98]"
+            className="min-h-[32px] rounded border border-[#2a3444] bg-[#090d13] px-2.5 font-mono text-xs font-medium text-slate-300 transition-colors hover:border-slate-400 hover:text-white active:scale-[0.98]"
           >
             {projectionMode === 'SIN'
               ? lang === 'es'
@@ -1238,7 +1237,7 @@ export function AladinSkyMap({
             type="button"
             onClick={() => setShowGrid((g) => !g)}
             aria-pressed={showGrid}
-            className="min-h-[44px] rounded-md border border-instrumentBorder bg-obsidian px-2.5 text-xs font-medium text-slate-200 hover:border-amber-400 active:scale-[0.98]"
+            className="min-h-[32px] rounded border border-[#2a3444] bg-[#090d13] px-2.5 font-mono text-xs font-medium text-slate-300 transition-colors hover:border-slate-400 hover:text-white active:scale-[0.98]"
           >
             {lang === 'es' ? 'Rejilla ICRS' : 'ICRS Grid'}
           </button>
@@ -1246,7 +1245,7 @@ export function AladinSkyMap({
           <button
             type="button"
             onClick={handleInspectCenter}
-            className="min-h-[44px] rounded-md bg-accentAmber px-3 py-1.5 text-xs font-semibold text-obsidian hover:bg-amber-400 active:scale-[0.98] active:bg-amber-500"
+            className="min-h-[32px] rounded border border-[#3b4759] bg-[#1a222e] px-3 font-mono text-xs font-medium text-slate-200 shadow-sm transition-colors hover:bg-[#232e3e] hover:text-white active:scale-[0.98]"
           >
             {lang === 'es' ? 'Consultar esta region' : 'Query this region'}
           </button>

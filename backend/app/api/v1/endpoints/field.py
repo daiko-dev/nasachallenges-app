@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+from typing import List, Dict, Any
 from datetime import datetime, timezone
 from fastapi import APIRouter, HTTPException, Query
 from astropy.time import Time
@@ -14,6 +17,18 @@ from app.core.config import settings
 router = APIRouter()
 
 MANDATORY_CREDIT = "SPHEREx data: NASA/JPL-Caltech/IPAC, via NASA/IPAC Infrared Science Archive"
+
+@router.get("/bands", response_model=List[Dict[str, Any]])
+def get_bands():
+    """
+    Returns the complete list of 102 SPHEREx infrared spectral channels (0.75 - 5.00 um)
+    across the 6 Linear Variable Filter detector arrays.
+    """
+    data_path = Path(__file__).resolve().parent.parent.parent.parent / "data" / "spherex_bands.json"
+    if data_path.exists():
+        with open(data_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return []
 
 @router.get("/field", response_model=FieldManifest)
 def get_field(

@@ -1,0 +1,614 @@
+[
+  {
+    "channel": 1,
+    "wavelength_um": 0.75,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 1 (0.75 \u00b5m)"
+  },
+  {
+    "channel": 2,
+    "wavelength_um": 0.7642,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 2 (0.7642 \u00b5m)"
+  },
+  {
+    "channel": 3,
+    "wavelength_um": 0.7787,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 3 (0.7787 \u00b5m)"
+  },
+  {
+    "channel": 4,
+    "wavelength_um": 0.7935,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 4 (0.7935 \u00b5m)"
+  },
+  {
+    "channel": 5,
+    "wavelength_um": 0.8085,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 5 (0.8085 \u00b5m)"
+  },
+  {
+    "channel": 6,
+    "wavelength_um": 0.8239,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 6 (0.8239 \u00b5m)"
+  },
+  {
+    "channel": 7,
+    "wavelength_um": 0.8395,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 7 (0.8395 \u00b5m)"
+  },
+  {
+    "channel": 8,
+    "wavelength_um": 0.8554,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 8 (0.8554 \u00b5m)"
+  },
+  {
+    "channel": 9,
+    "wavelength_um": 0.8716,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 9 (0.8716 \u00b5m)"
+  },
+  {
+    "channel": 10,
+    "wavelength_um": 0.8881,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 10 (0.8881 \u00b5m)"
+  },
+  {
+    "channel": 11,
+    "wavelength_um": 0.905,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 11 (0.905 \u00b5m)"
+  },
+  {
+    "channel": 12,
+    "wavelength_um": 0.9221,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 12 (0.9221 \u00b5m)"
+  },
+  {
+    "channel": 13,
+    "wavelength_um": 0.9396,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 13 (0.9396 \u00b5m)"
+  },
+  {
+    "channel": 14,
+    "wavelength_um": 0.9574,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 14 (0.9574 \u00b5m)"
+  },
+  {
+    "channel": 15,
+    "wavelength_um": 0.9756,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 15 (0.9756 \u00b5m)"
+  },
+  {
+    "channel": 16,
+    "wavelength_um": 0.9941,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 16 (0.9941 \u00b5m)"
+  },
+  {
+    "channel": 17,
+    "wavelength_um": 1.0129,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 17 (1.0129 \u00b5m)"
+  },
+  {
+    "channel": 18,
+    "wavelength_um": 1.0321,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 18 (1.0321 \u00b5m)"
+  },
+  {
+    "channel": 19,
+    "wavelength_um": 1.0517,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 19 (1.0517 \u00b5m)"
+  },
+  {
+    "channel": 20,
+    "wavelength_um": 1.0717,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 20 (1.0717 \u00b5m)"
+  },
+  {
+    "channel": 21,
+    "wavelength_um": 1.092,
+    "detector_array": "Array 1 (0.75 - 1.11 um)",
+    "label": "Band 21 (1.092 \u00b5m)"
+  },
+  {
+    "channel": 22,
+    "wavelength_um": 1.1127,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 22 (1.1127 \u00b5m)"
+  },
+  {
+    "channel": 23,
+    "wavelength_um": 1.1338,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 23 (1.1338 \u00b5m)"
+  },
+  {
+    "channel": 24,
+    "wavelength_um": 1.1553,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 24 (1.1553 \u00b5m)"
+  },
+  {
+    "channel": 25,
+    "wavelength_um": 1.1772,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 25 (1.1772 \u00b5m)"
+  },
+  {
+    "channel": 26,
+    "wavelength_um": 1.1995,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 26 (1.1995 \u00b5m)"
+  },
+  {
+    "channel": 27,
+    "wavelength_um": 1.2222,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 27 (1.2222 \u00b5m)"
+  },
+  {
+    "channel": 28,
+    "wavelength_um": 1.2454,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 28 (1.2454 \u00b5m)"
+  },
+  {
+    "channel": 29,
+    "wavelength_um": 1.269,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 29 (1.269 \u00b5m)"
+  },
+  {
+    "channel": 30,
+    "wavelength_um": 1.2931,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 30 (1.2931 \u00b5m)"
+  },
+  {
+    "channel": 31,
+    "wavelength_um": 1.3176,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 31 (1.3176 \u00b5m)"
+  },
+  {
+    "channel": 32,
+    "wavelength_um": 1.3426,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 32 (1.3426 \u00b5m)"
+  },
+  {
+    "channel": 33,
+    "wavelength_um": 1.368,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 33 (1.368 \u00b5m)"
+  },
+  {
+    "channel": 34,
+    "wavelength_um": 1.394,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 34 (1.394 \u00b5m)"
+  },
+  {
+    "channel": 35,
+    "wavelength_um": 1.4204,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 35 (1.4204 \u00b5m)"
+  },
+  {
+    "channel": 36,
+    "wavelength_um": 1.4474,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 36 (1.4474 \u00b5m)"
+  },
+  {
+    "channel": 37,
+    "wavelength_um": 1.4748,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 37 (1.4748 \u00b5m)"
+  },
+  {
+    "channel": 38,
+    "wavelength_um": 1.5028,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 38 (1.5028 \u00b5m)"
+  },
+  {
+    "channel": 39,
+    "wavelength_um": 1.5313,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 39 (1.5313 \u00b5m)"
+  },
+  {
+    "channel": 40,
+    "wavelength_um": 1.5603,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 40 (1.5603 \u00b5m)"
+  },
+  {
+    "channel": 41,
+    "wavelength_um": 1.5899,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 41 (1.5899 \u00b5m)"
+  },
+  {
+    "channel": 42,
+    "wavelength_um": 1.62,
+    "detector_array": "Array 2 (1.11 - 1.64 um)",
+    "label": "Band 42 (1.62 \u00b5m)"
+  },
+  {
+    "channel": 43,
+    "wavelength_um": 1.6507,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 43 (1.6507 \u00b5m)"
+  },
+  {
+    "channel": 44,
+    "wavelength_um": 1.682,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 44 (1.682 \u00b5m)"
+  },
+  {
+    "channel": 45,
+    "wavelength_um": 1.7139,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 45 (1.7139 \u00b5m)"
+  },
+  {
+    "channel": 46,
+    "wavelength_um": 1.7464,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 46 (1.7464 \u00b5m)"
+  },
+  {
+    "channel": 47,
+    "wavelength_um": 1.7795,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 47 (1.7795 \u00b5m)"
+  },
+  {
+    "channel": 48,
+    "wavelength_um": 1.8133,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 48 (1.8133 \u00b5m)"
+  },
+  {
+    "channel": 49,
+    "wavelength_um": 1.8477,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 49 (1.8477 \u00b5m)"
+  },
+  {
+    "channel": 50,
+    "wavelength_um": 1.8827,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 50 (1.8827 \u00b5m)"
+  },
+  {
+    "channel": 51,
+    "wavelength_um": 1.9184,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 51 (1.9184 \u00b5m)"
+  },
+  {
+    "channel": 52,
+    "wavelength_um": 1.9548,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 52 (1.9548 \u00b5m)"
+  },
+  {
+    "channel": 53,
+    "wavelength_um": 1.9918,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 53 (1.9918 \u00b5m)"
+  },
+  {
+    "channel": 54,
+    "wavelength_um": 2.0296,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 54 (2.0296 \u00b5m)"
+  },
+  {
+    "channel": 55,
+    "wavelength_um": 2.0681,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 55 (2.0681 \u00b5m)"
+  },
+  {
+    "channel": 56,
+    "wavelength_um": 2.1073,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 56 (2.1073 \u00b5m)"
+  },
+  {
+    "channel": 57,
+    "wavelength_um": 2.1472,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 57 (2.1472 \u00b5m)"
+  },
+  {
+    "channel": 58,
+    "wavelength_um": 2.188,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 58 (2.188 \u00b5m)"
+  },
+  {
+    "channel": 59,
+    "wavelength_um": 2.2294,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 59 (2.2294 \u00b5m)"
+  },
+  {
+    "channel": 60,
+    "wavelength_um": 2.2717,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 60 (2.2717 \u00b5m)"
+  },
+  {
+    "channel": 61,
+    "wavelength_um": 2.3148,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 61 (2.3148 \u00b5m)"
+  },
+  {
+    "channel": 62,
+    "wavelength_um": 2.3587,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 62 (2.3587 \u00b5m)"
+  },
+  {
+    "channel": 63,
+    "wavelength_um": 2.4034,
+    "detector_array": "Array 3 (1.64 - 2.42 um)",
+    "label": "Band 63 (2.4034 \u00b5m)"
+  },
+  {
+    "channel": 64,
+    "wavelength_um": 2.449,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 64 (2.449 \u00b5m)"
+  },
+  {
+    "channel": 65,
+    "wavelength_um": 2.4954,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 65 (2.4954 \u00b5m)"
+  },
+  {
+    "channel": 66,
+    "wavelength_um": 2.5427,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 66 (2.5427 \u00b5m)"
+  },
+  {
+    "channel": 67,
+    "wavelength_um": 2.5909,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 67 (2.5909 \u00b5m)"
+  },
+  {
+    "channel": 68,
+    "wavelength_um": 2.6401,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 68 (2.6401 \u00b5m)"
+  },
+  {
+    "channel": 69,
+    "wavelength_um": 2.6901,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 69 (2.6901 \u00b5m)"
+  },
+  {
+    "channel": 70,
+    "wavelength_um": 2.7411,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 70 (2.7411 \u00b5m)"
+  },
+  {
+    "channel": 71,
+    "wavelength_um": 2.7931,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 71 (2.7931 \u00b5m)"
+  },
+  {
+    "channel": 72,
+    "wavelength_um": 2.8461,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 72 (2.8461 \u00b5m)"
+  },
+  {
+    "channel": 73,
+    "wavelength_um": 2.9,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 73 (2.9 \u00b5m)"
+  },
+  {
+    "channel": 74,
+    "wavelength_um": 2.955,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 74 (2.955 \u00b5m)"
+  },
+  {
+    "channel": 75,
+    "wavelength_um": 3.011,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 75 (3.011 \u00b5m)"
+  },
+  {
+    "channel": 76,
+    "wavelength_um": 3.0681,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 76 (3.0681 \u00b5m)"
+  },
+  {
+    "channel": 77,
+    "wavelength_um": 3.1263,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 77 (3.1263 \u00b5m)"
+  },
+  {
+    "channel": 78,
+    "wavelength_um": 3.1856,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 78 (3.1856 \u00b5m)"
+  },
+  {
+    "channel": 79,
+    "wavelength_um": 3.246,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 79 (3.246 \u00b5m)"
+  },
+  {
+    "channel": 80,
+    "wavelength_um": 3.3075,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 80 (3.3075 \u00b5m)"
+  },
+  {
+    "channel": 81,
+    "wavelength_um": 3.3703,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 81 (3.3703 \u00b5m)"
+  },
+  {
+    "channel": 82,
+    "wavelength_um": 3.4342,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 82 (3.4342 \u00b5m)"
+  },
+  {
+    "channel": 83,
+    "wavelength_um": 3.4993,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 83 (3.4993 \u00b5m)"
+  },
+  {
+    "channel": 84,
+    "wavelength_um": 3.5656,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 84 (3.5656 \u00b5m)"
+  },
+  {
+    "channel": 85,
+    "wavelength_um": 3.6332,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 85 (3.6332 \u00b5m)"
+  },
+  {
+    "channel": 86,
+    "wavelength_um": 3.7021,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 86 (3.7021 \u00b5m)"
+  },
+  {
+    "channel": 87,
+    "wavelength_um": 3.7723,
+    "detector_array": "Array 4 (2.42 - 3.82 um)",
+    "label": "Band 87 (3.7723 \u00b5m)"
+  },
+  {
+    "channel": 88,
+    "wavelength_um": 3.8438,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 88 (3.8438 \u00b5m)"
+  },
+  {
+    "channel": 89,
+    "wavelength_um": 3.9167,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 89 (3.9167 \u00b5m)"
+  },
+  {
+    "channel": 90,
+    "wavelength_um": 3.991,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 90 (3.991 \u00b5m)"
+  },
+  {
+    "channel": 91,
+    "wavelength_um": 4.0667,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 91 (4.0667 \u00b5m)"
+  },
+  {
+    "channel": 92,
+    "wavelength_um": 4.1438,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 92 (4.1438 \u00b5m)"
+  },
+  {
+    "channel": 93,
+    "wavelength_um": 4.2223,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 93 (4.2223 \u00b5m)"
+  },
+  {
+    "channel": 94,
+    "wavelength_um": 4.3024,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 94 (4.3024 \u00b5m)"
+  },
+  {
+    "channel": 95,
+    "wavelength_um": 4.384,
+    "detector_array": "Array 5 (3.82 - 4.42 um)",
+    "label": "Band 95 (4.384 \u00b5m)"
+  },
+  {
+    "channel": 96,
+    "wavelength_um": 4.4671,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 96 (4.4671 \u00b5m)"
+  },
+  {
+    "channel": 97,
+    "wavelength_um": 4.5518,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 97 (4.5518 \u00b5m)"
+  },
+  {
+    "channel": 98,
+    "wavelength_um": 4.6381,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 98 (4.6381 \u00b5m)"
+  },
+  {
+    "channel": 99,
+    "wavelength_um": 4.726,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 99 (4.726 \u00b5m)"
+  },
+  {
+    "channel": 100,
+    "wavelength_um": 4.8157,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 100 (4.8157 \u00b5m)"
+  },
+  {
+    "channel": 101,
+    "wavelength_um": 4.907,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 101 (4.907 \u00b5m)"
+  },
+  {
+    "channel": 102,
+    "wavelength_um": 5.0,
+    "detector_array": "Array 6 (4.42 - 5.00 um)",
+    "label": "Band 102 (5.0 \u00b5m)"
+  }
+]

@@ -140,3 +140,15 @@ def test_cors_headers_present():
     )
     assert response.status_code == 200
     assert response.headers.get("access-control-allow-origin") in ["*", "http://localhost:5173"]
+
+def test_bands_endpoint():
+    from app.main import app
+    client = TestClient(app)
+    response = client.get("/api/v1/bands")
+    assert response.status_code == 200
+    bands = response.json()
+    assert len(bands) == 102
+    assert bands[0]["channel"] == 1
+    assert bands[0]["wavelength_um"] == 0.75
+    assert bands[101]["channel"] == 102
+    assert bands[101]["wavelength_um"] == 5.0
