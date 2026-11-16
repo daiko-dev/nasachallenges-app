@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1376" height="768" viewBox="0 0 1376 768" role="img" aria-labelledby="title desc">
+  <title id="title">Símbolo de planeta con señal</title>
+  <desc id="desc">Un planeta azul atravesado por un anillo orbital inclinado y una onda naranja horizontal, sin fondo.</desc>
+
+  <!-- Anillo orbital inclinado -->
+  <ellipse cx="688" cy="310" rx="220" ry="40"
+           transform="rotate(-20 688 310)"
+           fill="none" stroke="#0f7edf" stroke-width="10"
+           stroke-linecap="round"/>
+
+  <!-- Aro principal del planeta -->
+  <circle cx="688" cy="310" r="155"
+          fill="none" stroke="#0f7edf" stroke-width="35"/>
+
+  <!-- Señal / onda -->
+  <path d="M 488 310
+           L 581 310
+           C 594 310, 600 301, 607 285
+           L 620 258
+           C 626 245, 635 239, 644 239
+           C 654 239, 661 252, 667 269
+           L 704 363
+           C 712 384, 722 395, 736 395
+           C 749 395, 756 385, 763 365
+           L 779 322
+           C 783 313, 789 310, 800 310
+           L 888 310"
+        fill="none" stroke="#ec9625" stroke-width="15"
+        stroke-linecap="butt" stroke-linejoin="round"/>
+</svg>

@@ -25,6 +25,10 @@ export const translations = {
     hideHud: 'Hide HUD',
     showHud: 'Show HUD',
     hudToggleAria: 'Toggle scientific inspector HUD dock',
+    fovLabel: 'FOV (deg):',
+    fovAria: 'Field of view in degrees',
+    bandControlsTitle: 'SPHEREx 102 Spectral Channels',
+    bandControlsToggle: '102 IR Bands',
   },
   es: {
     appTitle: 'SphereX Viewer and Data Visualizer (SVDV)',
@@ -52,6 +56,10 @@ export const translations = {
     hideHud: 'Ocultar HUD',
     showHud: 'Mostrar HUD',
     hudToggleAria: 'Alternar panel HUD de inspeccion cientifica',
+    fovLabel: 'FOV (grados):',
+    fovAria: 'Campo de vision en grados',
+    bandControlsTitle: '102 Canales Espectrales SPHEREx',
+    bandControlsToggle: '102 Bandas IR',
   },
 } as const;
 

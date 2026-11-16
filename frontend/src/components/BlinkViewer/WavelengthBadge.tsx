@@ -15,10 +15,10 @@ export function WavelengthBadge({
     return (
       <div
         role="status"
-        className="flex items-start gap-2.5 rounded-md border border-emerald-500/80 bg-emerald-950/90 px-3 py-2 text-xs text-emerald-100"
+        className="flex items-start gap-2.5 rounded border border-[#0d402e] bg-[#061811] px-3 py-1.5 text-xs text-emerald-100"
       >
         <svg
-          className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300"
+          className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"
@@ -30,10 +30,10 @@ export function WavelengthBadge({
           />
         </svg>
         <div>
-          <p className="font-semibold text-emerald-200">
+          <p className="font-mono text-xs font-semibold text-emerald-300">
             {lang === 'es' ? 'Longitud de onda compatible' : 'Wavelength Matched'}
           </p>
-          <p className="font-mono text-[11px] text-emerald-200/95 tabular-nums">
+          <p className="mt-0.5 font-mono text-[11px] text-emerald-200/80 tabular-nums">
             {lambdaA.toFixed(3)} um vs {lambdaB.toFixed(3)} um.{' '}
             <span className="font-sans">
               {lang === 'es'
@@ -49,10 +49,10 @@ export function WavelengthBadge({
   return (
     <div
       role="status"
-      className="flex items-start gap-2.5 rounded-md border border-amber-500/80 bg-amber-950/90 px-3 py-2 text-xs text-amber-100"
+      className="flex items-start gap-2.5 rounded border border-[#422e0f] bg-[#181105] px-3 py-1.5 text-xs text-amber-100"
     >
       <svg
-        className="mt-0.5 h-4 w-4 shrink-0 text-amber-300"
+        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400"
         viewBox="0 0 20 20"
         fill="currentColor"
         aria-hidden="true"
@@ -64,10 +64,10 @@ export function WavelengthBadge({
         />
       </svg>
       <div>
-        <p className="font-semibold text-amber-200">
+        <p className="font-mono text-xs font-semibold text-amber-300">
           {lang === 'es' ? 'Longitud de onda distinta (Mismatch)' : 'Wavelength Mismatch'}
         </p>
-        <p className="font-mono text-[11px] text-amber-200/95 tabular-nums">
+        <p className="mt-0.5 font-mono text-[11px] text-amber-200/80 tabular-nums">
           {lambdaA.toFixed(3)} um vs {lambdaB.toFixed(3)} um:{' '}
           <span className="font-sans">
             {lang === 'es'

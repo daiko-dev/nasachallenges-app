@@ -31,30 +31,42 @@ function parseSexagesimalDec(dStr: string, mStr: string, sStr: string): number |
   return val < -90 || val > 90 ? null : val;
 }
 
-export function parseCoords(raw: string): { ra: number; dec: number } | null {
+export function parseCoords(raw: string): { ra: number; dec: number; fov?: number } | null {
   const input = raw.trim();
   if (!input) return null;
 
   // Sexagesimal with h/m/s and d/m/s or colon separators:
   // e.g. "13h 03m 31s +54d 20m 56s" or "13:03:31 -54:20:56"
   const sexaMatch = input.match(
-    /^(\d{1,2})[h:\s]+(\d{1,2})[m:\s]+(\d{1,2}(?:\.\d+)?)s?[\s,]+([+-]?\d{1,2})[d°:\s]+(\d{1,2})[m':\s]+(\d{1,2}(?:\.\d+)?)[s"]?$/i
+    /^(\d{1,2})[h:\s]+(\d{1,2})[m:\s]+(\d{1,2}(?:\.\d+)?)s?[\s,]+([+-]?\d{1,2})[d°:\s]+(\d{1,2})[m':\s]+(\d{1,2}(?:\.\d+)?)[s"]?(?:[\s,]+([+-]?\d+(?:\.\d+)?))?$/i
   );
   if (sexaMatch) {
     const ra = parseSexagesimalRa(sexaMatch[1], sexaMatch[2], sexaMatch[3]);
     const dec = parseSexagesimalDec(sexaMatch[4], sexaMatch[5], sexaMatch[6]);
     if (ra === null || dec === null) return null;
-    return { ra: Number(normalizeRa(ra).toFixed(6)), dec: Number(dec.toFixed(6)) };
+    const fov = sexaMatch[7] ? Number(sexaMatch[7]) : undefined;
+    return {
+      ra: Number(normalizeRa(ra).toFixed(6)),
+      dec: Number(dec.toFixed(6)),
+      ...(Number.isFinite(fov) && fov! > 0 && fov! <= 180 ? { fov } : {}),
+    };
   }
 
-  // Decimal format: "210.80 54.35" or "210.80, +54.35"
-  const decMatch = input.match(/^([+-]?\d+(?:\.\d+)?)[\s,]+([+-]?\d+(?:\.\d+)?)$/);
+  // Decimal format: "210.80 54.35" or "210.80, +54.35" or "210.80 54.35 0.50"
+  const decMatch = input.match(
+    /^([+-]?\d+(?:\.\d+)?)[\s,]+([+-]?\d+(?:\.\d+)?)(?:[\s,]+([+-]?\d+(?:\.\d+)?))?$/
+  );
   if (decMatch) {
     const raRaw = Number(decMatch[1]);
     const dec = Number(decMatch[2]);
     if (!Number.isFinite(raRaw) || !Number.isFinite(dec)) return null;
     if (dec < -90 || dec > 90) return null;
-    return { ra: Number(normalizeRa(raRaw).toFixed(6)), dec: Number(dec.toFixed(6)) };
+    const fov = decMatch[3] ? Number(decMatch[3]) : undefined;
+    return {
+      ra: Number(normalizeRa(raRaw).toFixed(6)),
+      dec: Number(dec.toFixed(6)),
+      ...(Number.isFinite(fov) && fov! > 0 && fov! <= 180 ? { fov } : {}),
+    };
   }
 
   return null;
